@@ -6,14 +6,39 @@ bool doubleCheckInput(string book, string author) {
     char input;
     bool doublechecker = true;
 
-    cout << "You entered --> Book : " << book << " \n\t\tAuthor: " << author;
+    cout << "You entered --> Book: " << book << " \n\t\tAuthor: " << author;
     cout << "\nIs this correct? (Y/N) ";
     cin >> input;
     if(((input != 'Y') || (input != 'y')) && ((input == 'N') || (input == 'n'))) {
         doublechecker = false;
     }
     return doublechecker;
+}
 
+bool doubleCheckInput(string movie) {
+    char input;
+    bool doublechecker = true;
+
+    cout << "You entered --> Movie: " << movie;
+    cout << "\nIs this correct? (Y/N) ";
+    cin >> input;
+    if(((input != 'Y') || (input != 'y')) && ((input == 'N') || (input == 'n'))) {
+        doublechecker = false;
+    }
+    return doublechecker;
+}
+
+bool doubleCheckInput(string song, string artist, string album) {
+    char input;
+    bool doublechecker = true;
+
+    cout << "You entered --> Song: " << song << "\n\t\tArtist: " << artist << "\n\t\tAlbum: " << album;
+    cout << "\nIs this correct? (Y/N) ";
+    cin >> input;
+    if(((input != 'Y') || (input != 'y')) && ((input == 'N') || (input == 'n'))) {
+        doublechecker = false;
+    }
+    return doublechecker;
 }
 
 void menu() {
@@ -53,14 +78,12 @@ void books() {
 
         char userInput;
         do {
-
             string bookName;
             string authorName;
 
             do {
-
-            
                 cin.ignore(1000, '\n');
+
                 cout << "Book: ";
                 getline(cin, bookName);
 
@@ -106,13 +129,16 @@ void movies() {
         do {
             string movieTitle;
 
+            do {
             cin.ignore(1000, '\n');
-            cout << "Movie Title: ";
+
+            cout << "\nMovie Title: ";
             getline(cin, movieTitle);
+            }while(!(doubleCheckInput(movieTitle)));
 
             outstream << "Movie Title:" << movieTitle << "\n\n";
 
-            cout << "Would you like to add another entry? (Y/N) ";
+            cout << "\nWould you like to add another entry? (Y/N) ";
             
             cin >> userInput;
         }while (((userInput != 'N') || (userInput != 'n')) && ((userInput == 'y') || (userInput == 'Y')));
@@ -123,7 +149,7 @@ void movies() {
 
 void music() {
     cout <<"***MUSIC***\n\n";
-/*
+
     ofstream outstream;
     outstream.open("musicListenedTo.odt", ios::in | ios::app);
 
@@ -132,31 +158,35 @@ void music() {
         exit(1);
     }
 
-        
-        
         char userInput;
         do {
-
-            cout << "Song Title: ";
-
             string songTitle;
-            getline(cin, bookName);
-
-            outstream << "Song:" << songTitle << endl;
-            cout << "By: ";
-
             string artist;
-            getline(cin, artist);
+            string album;
 
-            outstream << "By: " << artist << endl;
-            outstream << "\n";
+            do {
+                cin.ignore(1000, '\n');
+
+                cout << "Song Title: ";
+                getline(cin, songTitle);
+
+                cout << "Artist: ";
+                getline(cin, artist);
+
+                cout << "Album: ";
+                getline(cin, album);
+            }while (!(doubleCheckInput(songTitle, artist, album)));
+
+            outstream << "Song: " << songTitle << endl;
+            outstream << "Artist: " << artist << endl;
+            outstream << "Album: " << album << "\n\n\n";
 
             cout << "Would you like to add another entry? (Y/N) ";
 
             cin >> userInput;
         }while (((userInput != 'N') || (userInput != 'n')) && ((userInput == 'y') || (userInput == 'Y')));
 
-        outstream.close();*/
+        outstream.close();
 }
 
 
@@ -185,7 +215,7 @@ int main() {
         }while((userInput < 1) || (userInput > 4));
 
 
-        cout << "Do you need to add other entries? (Y/N) ";
+        cout << "Do you wish to add anything else? (Y/N) ";
         
         cin.ignore(1000, '\n');
         cin >> charInput;
