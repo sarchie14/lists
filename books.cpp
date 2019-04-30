@@ -3,8 +3,8 @@
 using namespace std;
 
 void menu() {
-    cout << "**Enter the number where you'd "
-        << "\n\tlike to add the item**\n";
+    cout << "\n**Enter the number where"
+        << "\nyou'd like to add the item**\n";
     cout << "--------------" << endl;
     cout << "|    Menu    |" << endl;
     cout << "--------------" << endl;
@@ -15,11 +15,22 @@ void menu() {
     cout << "--------------" << endl; 
 }
 
+void printToScreen(ifstream &file) {
+
+     if (file.is_open())
+        cout << "\n---------------------------";
+        cout << "\n" << file.rdbuf();
+        cout << "---------------------------" << endl;
+}
 void books() {
-    cout <<"***BOOKS***\n\n";
+
+    
+    cout <<"\n***BOOKS***\n\n";
 
     ofstream outstream;
     outstream.open("BooksRead.odt", ios::in | ios::app);
+
+    
 
     if(outstream.fail()) {
         cout << "Error while opening file";
@@ -42,12 +53,22 @@ void books() {
             outstream << "Book:" << bookName << endl;
             outstream << "By: " << authorName << "\n\n";
 
-            cout << "Would you like to add another entry?";
+            cout << "\nWould you like to add another entry?";
 
             cin >> userInput;
         }while (((userInput != 'N') || (userInput != 'n')) && ((userInput == 'y') || (userInput == 'Y')));
 
         outstream.close();
+
+        cout << "\nDo you want to view books you have read? ";
+        cin >> userInput;
+
+            if(((userInput != 'N') || (userInput != 'n')) && ((userInput == 'y') || (userInput == 'Y')))
+            {
+            ifstream BooksRead("BooksRead.odt");
+            printToScreen(BooksRead);
+            BooksRead.close();
+            }
 }
 
 void movies() {
@@ -120,11 +141,13 @@ void music() {
         outstream.close();
 }
 
-int main() {
 
+
+int main() {
+menu();
     int userInput;
     char charInput;
-
+/*
    do { 
     menu();
 
@@ -149,6 +172,6 @@ int main() {
         cin.ignore(1000, '\n');
         cin >> charInput;
 
-   }while (((charInput != 'N') || (charInput != 'n')) && ((charInput == 'y') || (charInput == 'Y')));
+   }while (((charInput != 'N') || (charInput != 'n')) && ((charInput == 'y') || (charInput == 'Y'))); */
     return 0;
 }
