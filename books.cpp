@@ -9,6 +9,7 @@ bool doubleCheckInput(string book, string author) {
     cout << "You entered --> Book: " << book << " \n\t\tAuthor: " << author;
     cout << "\nIs this correct? (Y/N) ";
     cin >> input;
+    
     if(((input != 'Y') || (input != 'y')) && ((input == 'N') || (input == 'n'))) {
         doublechecker = false;
     }
@@ -22,6 +23,7 @@ bool doubleCheckInput(string movie) {
     cout << "You entered --> Movie: " << movie;
     cout << "\nIs this correct? (Y/N) ";
     cin >> input;
+    
     if(((input != 'Y') || (input != 'y')) && ((input == 'N') || (input == 'n'))) {
         doublechecker = false;
     }
@@ -35,6 +37,7 @@ bool doubleCheckInput(string song, string artist, string album) {
     cout << "You entered --> Song: " << song << "\n\t\tArtist: " << artist << "\n\t\tAlbum: " << album;
     cout << "\nIs this correct? (Y/N) ";
     cin >> input;
+    
     if(((input != 'Y') || (input != 'y')) && ((input == 'N') || (input == 'n'))) {
         doublechecker = false;
     }
@@ -55,21 +58,17 @@ void menu() {
 }
 
 void printToScreen(ifstream &file) {
-
      if (file.is_open())
         cout << "\n---------------------------";
         cout << "\n" << file.rdbuf();
         cout << "---------------------------" << endl;
 }
-void books() {
 
-    
+void books() {
     cout <<"\n***BOOKS***\n\n";
 
     ofstream outstream;
     outstream.open("BooksRead.odt", ios::in | ios::app);
-
-    
 
     if(outstream.fail()) {
         cout << "Error while opening file";
@@ -107,7 +106,9 @@ void books() {
             if(((userInput != 'N') || (userInput != 'n')) && ((userInput == 'y') || (userInput == 'Y')))
             {
             ifstream BooksRead("BooksRead.odt");
+            
             printToScreen(BooksRead);
+            
             BooksRead.close();
             }
 }
@@ -123,8 +124,6 @@ void movies() {
         exit(1);
     }
 
-        
-        
         char userInput;
         do {
             string movieTitle;
@@ -136,7 +135,7 @@ void movies() {
             getline(cin, movieTitle);
             }while(!(doubleCheckInput(movieTitle)));
 
-            outstream << "Movie Title:" << movieTitle << "\n\n";
+            outstream << "Movie Title: " << movieTitle << "\n\n";
 
             cout << "\nWould you like to add another entry? (Y/N) ";
             
@@ -144,6 +143,18 @@ void movies() {
         }while (((userInput != 'N') || (userInput != 'n')) && ((userInput == 'y') || (userInput == 'Y')));
 
         outstream.close();
+
+        cout << "\nDo you want to view the movies you have watched? (Y/N) ";
+        cin >> userInput;
+
+            if(((userInput != 'N') || (userInput != 'n')) && ((userInput == 'y') || (userInput == 'Y')))
+            {
+            ifstream moviesWatched("moviesWatched.odt");
+            
+            printToScreen(moviesWatched);
+            
+            moviesWatched.close();
+            }
 }
 
 
@@ -187,6 +198,18 @@ void music() {
         }while (((userInput != 'N') || (userInput != 'n')) && ((userInput == 'y') || (userInput == 'Y')));
 
         outstream.close();
+
+        cout << "\nDo you want to the music you listen to? (Y/N) ";
+        cin >> userInput;
+
+            if(((userInput != 'N') || (userInput != 'n')) && ((userInput == 'y') || (userInput == 'Y')))
+            {
+            ifstream musicListenedTo("musicListenedTo.odt");
+            
+            printToScreen(musicListenedTo);
+            
+            musicListenedTo.close();
+            }
 }
 
 
